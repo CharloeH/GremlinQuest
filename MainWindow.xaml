@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:GremlinQuestV1._1"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280" WindowState="Maximized">
-    <Grid>
+    <StackPanel x:Name="SPWindow">
+        <Button x:Name="BtnShop" Click="BtnShop_Click" Content="Open Shop" Visibility="Visible"/>
         <Canvas x:Name="Canvas">
             <Button x:Name="btnPlay" Content="Play" Click="btnPlay_Click" Height="100" Width="200" Canvas.Left="540" Canvas.Top="360"/>
             <Button x:Name="btnCredits" Content="About" Click="btnCredits_Click" Height="100" Width="200" Canvas.Left="540" Canvas.Top="500"/>
@@ -14,5 +15,5 @@
             <TextBlock x:Name="txtCredits" Text="Test" Height="100" Width="200" Canvas.Left="540" Canvas.Top="400" Visibility="Hidden"/>
             
         </Canvas>
-    </Grid>
+    </StackPanel>
 </Window>
