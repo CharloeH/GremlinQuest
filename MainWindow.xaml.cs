@@ -13,36 +13,40 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-namespace GremlinQuestV1._1
+namespace GremlinQuest
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        //Class Declaration
-
-        public bool isMove;
-        DispatcherTimer GameTimer;
-        Rectangle PlayerRectangle;
-        public Rectangle MapRectangle;
+        Shop shop;
         Menu menu;
         Point playerPoint;
         Player player;
         Map map;
-        public bool ShopOpen = false;
+        
+        public bool isMove;
+        DispatcherTimer GameTimer;
+        Rectangle PlayerRectangle;
+        public Rectangle MapRectangle;
         public bool isGenerated = false;
-        public Canvas CShop;
+        
         public MainWindow()
         {
+            shop = new Shop();
+            menu = new Menu();
+            player = new Player();
+            map = new Map();
+            
             GameTimer = new DispatcherTimer();
             MapRectangle = new Rectangle();
             PlayerRectangle = new Rectangle();
             playerPoint = new Point(500,500);
-            menu = new Menu();
-            player = new Player();
-            map = new Map();
+            
             InitializeComponent();
+            
+            shop.GenerateShop(SPWindow);
 
             //Generating player
             if (isGenerated == false)
@@ -64,6 +68,7 @@ namespace GremlinQuestV1._1
             CShop.Width = 1000;
             CShop.HorizontalAlignment = HorizontalAlignment.Center;
         }
+        
         private void GameTimer_tick(object sender, EventArgs e)
         {
             player.PlayerMove(PlayerRectangle, playerPoint, isMove);
@@ -72,13 +77,13 @@ namespace GremlinQuestV1._1
 
         private void BtnShop_Click(object sender, RoutedEventArgs e)
         {
-            if (ShopOpen)
+            if (shop.ShopOpen)
             {
-                CloseShopWindow(SPWindow);
+                shop.CloseShopWindow(BtnShop);
             }
-            else if (ShopOpen == false)
+            else if (shop.ShopOpen == false) 
             {
-                OpenShopWindow(SPWindow);
+                shop.OpenShopWindow(BtnShop);
             }
         }
 
@@ -103,26 +108,6 @@ namespace GremlinQuestV1._1
         private void Testbox()
         {
             //MessageBox.Show("test");
-        }
-
-        //needs moved to shop class, requires references.
-        public void OpenShopWindow(StackPanel Window)
-        {
-            BtnShop.Content = "Close Shop";
-            SPWindow.Children.Add(CShop);
-            ShopOpen = true;
-            //troubleshooting lblConsole.Content = "Shop open";
-            isMove = false;
-        }
-
-        public void CloseShopWindow(StackPanel Window)
-        {
-            int temp = Window.Children.IndexOf(CShop);
-            Window.Children.RemoveAt(temp);
-            BtnShop.Content = "Open Shop";
-            ShopOpen = false;
-            //troubleshooting lblConsole.Content = "Shop not open";
-            isMove = true;
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
