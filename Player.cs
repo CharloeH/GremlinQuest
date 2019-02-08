@@ -19,30 +19,37 @@ namespace GremlinQuestV1._1
     {
         public Rectangle playerRectangle = new Rectangle();
         public Point playerPoint = new Point();
-        public Point PlayerMove (Rectangle pRectangle, Point pP)
+        public Point PlayerMove (Rectangle pRectangle, Point pP, bool isMove)
         {
-            playerPoint = pP;
-            if (Keyboard.IsKeyDown(Key.W))
+            if (isMove == true)
             {
-                DisplayCordinates(playerPoint);
-                pP.Y -= 10;
-                
+                playerPoint = pP;
+                if (Keyboard.IsKeyDown(Key.W))
+                {
+                    DisplayCordinates();
+                    pP.Y -= 10;
+
+                }
+                if (Keyboard.IsKeyDown(Key.S))
+                {
+                    DisplayCordinates();
+                    pP.Y += 10;
+                }
+                if (Keyboard.IsKeyDown(Key.A))
+                {
+                    DisplayCordinates();
+                    pP.X -= 10;
+                }
+                if (Keyboard.IsKeyDown(Key.D))
+                {
+                    DisplayCordinates();
+                    pP.X += 10;
+                }
+                Canvas.SetLeft(playerRectangle, playerPoint.X);
+                Canvas.SetTop(playerRectangle, playerPoint.Y);
             }
-            if(Keyboard.IsKeyDown(Key.S))
-            {
-                pP.Y += 10;
-            }
-            if(Keyboard.IsKeyDown(Key.A))
-            {
-                pP.X -= 10;
-            }
-            if(Keyboard.IsKeyDown(Key.D))
-            {
-                pP.X += 10;
-            }
-            Canvas.SetLeft(playerRectangle, playerPoint.X);
-            Canvas.SetTop(playerRectangle, playerPoint.Y);
-            return pP;
+                return pP;
+            
         }
 
         public void GeneratePlayer(Canvas canvas, Point pP)
@@ -55,7 +62,7 @@ namespace GremlinQuestV1._1
             Canvas.SetLeft(playerRectangle, playerPoint.X);
             Canvas.SetTop(playerRectangle, playerPoint.Y);
         }
-        public void DisplayCordinates(Point PlayerPoint)
+        public void DisplayCordinates()
         {
             Console.WriteLine(playerPoint);
         }

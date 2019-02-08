@@ -21,31 +21,36 @@ namespace GremlinQuestV1._1
     public partial class MainWindow : Window
     {
         //Class Declaration
+
+        public bool isMove;
         DispatcherTimer GameTimer;
         Rectangle PlayerRectangle;
+        public Rectangle MapRectangle;
         Menu menu;
         Point playerPoint;
         Player player;
+        Map map;
         public bool ShopOpen = false;
         public bool isGenerated = false;
         public Canvas CShop;
-
         public MainWindow()
         {
             GameTimer = new DispatcherTimer();
+            MapRectangle = new Rectangle();
             PlayerRectangle = new Rectangle();
             playerPoint = new Point(500,500);
             menu = new Menu();
-            player = new Player(); 
+            player = new Player();
+            map = new Map();
             InitializeComponent();
-
-
 
             //Generating player
             if (isGenerated == false)
             {
+                map.GenerateMap(SPWindow, MapRectangle);
                 player.GeneratePlayer(Canvas, playerPoint);
                 isGenerated = true;
+                isMove = true;
             }
             //Gametimer
             GameTimer.Tick += GameTimer_tick;
@@ -61,8 +66,8 @@ namespace GremlinQuestV1._1
         }
         private void GameTimer_tick(object sender, EventArgs e)
         {
-            player.PlayerMove(PlayerRectangle, playerPoint);
-            playerPoint = player.PlayerMove(PlayerRectangle, playerPoint);
+            player.PlayerMove(PlayerRectangle, playerPoint, isMove);
+            playerPoint = player.PlayerMove(PlayerRectangle, playerPoint, isMove);
         }
 
         private void BtnShop_Click(object sender, RoutedEventArgs e)
@@ -107,6 +112,7 @@ namespace GremlinQuestV1._1
             SPWindow.Children.Add(CShop);
             ShopOpen = true;
             //troubleshooting lblConsole.Content = "Shop open";
+            isMove = false;
         }
 
         public void CloseShopWindow(StackPanel Window)
@@ -116,6 +122,7 @@ namespace GremlinQuestV1._1
             BtnShop.Content = "Open Shop";
             ShopOpen = false;
             //troubleshooting lblConsole.Content = "Shop not open";
+            isMove = true;
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
