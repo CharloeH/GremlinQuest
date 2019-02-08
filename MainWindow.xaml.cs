@@ -25,7 +25,7 @@ namespace GremlinQuest
         Point playerPoint;
         Player player;
         Map map;
-        
+        public Canvas MapCanvas = new Canvas();
         public bool isMove;
         DispatcherTimer GameTimer;
         Rectangle PlayerRectangle;
@@ -46,27 +46,19 @@ namespace GremlinQuest
             
             InitializeComponent();
             
-            shop.GenerateShop(SPWindow);
+            shop.GenerateShop(Canvas);
 
             //Generating player
-            if (isGenerated == false)
-            {
-                map.GenerateMap(SPWindow, MapRectangle);
-                player.GeneratePlayer(Canvas, playerPoint);
-                isGenerated = true;
+               
+                player.GeneratePlayer(MapCanvas, playerPoint);
+            map.GenerateMap(MapCanvas, SPWindow);
+            isGenerated = true;
                 isMove = true;
-            }
+            
             //Gametimer
             GameTimer.Tick += GameTimer_tick;
             GameTimer.Interval = new TimeSpan(0, 0, 0, 0, 1000 / 60);//fps
             GameTimer.Start();
-
-            //needs moved to shop class
-            CShop = new Canvas();
-            CShop.Background = Brushes.Red;
-            CShop.Height = 650;
-            CShop.Width = 1000;
-            CShop.HorizontalAlignment = HorizontalAlignment.Center;
         }
         
         private void GameTimer_tick(object sender, EventArgs e)
@@ -79,10 +71,13 @@ namespace GremlinQuest
         {
             if (shop.ShopOpen)
             {
+                isMove = true;
                 shop.CloseShopWindow(BtnShop);
+               
             }
             else if (shop.ShopOpen == false) 
             {
+                isMove = false;
                 shop.OpenShopWindow(BtnShop);
             }
         }

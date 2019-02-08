@@ -19,18 +19,17 @@ namespace GremlinQuest
     {
         public bool ShopOpen = false;
         public Canvas CShop;
-        private StackPanel sp;
+        private Canvas c;
 
-        public Canvas GenerateShop(StackPanel SPWindow)
+        public Canvas GenerateShop(Canvas Canvas)
         {
-            sp = SPWindow;
+            c = Canvas;
             //creates shop
             CShop = new Canvas();
             CShop.Background = Brushes.Red;
             CShop.Height = 650;
             CShop.Width = 1000;
             CShop.HorizontalAlignment = HorizontalAlignment.Center;
-
             
             return CShop;
         }
@@ -43,14 +42,14 @@ namespace GremlinQuest
         public void OpenShopWindow(Button btnShop)
         {
             btnShop.Content = "Close Shop";
-            sp.Children.Add(CShop);
+            c.Children.Add(CShop);
             ShopOpen = true;
             //Console.WriteLine("Shop open");
         }
 
         public void CloseShopWindow(Button btnShop)
         {
-            sp.Children.RemoveAt(sp.Children.IndexOf(CShop));
+            c.Children.RemoveAt(c.Children.IndexOf(CShop));
             btnShop.Content = "Open Shop";
             ShopOpen = false;
             //Console.WriteLine("Shop not open");

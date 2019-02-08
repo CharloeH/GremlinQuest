@@ -48,17 +48,21 @@ namespace GremlinQuest
                 Canvas.SetLeft(playerRectangle, playerPoint.X);
                 Canvas.SetTop(playerRectangle, playerPoint.Y);
             }
-                return pP;
-            
+                
+            else 
+            {
+               // MessageBox.Show("nope");
+            }
+            return pP;
         }
 
-        public void GeneratePlayer(Canvas canvas, Point pP)
+        public void GeneratePlayer(Canvas c, Point pP)
         {
             playerPoint = pP;
             playerRectangle.Height = 50;
             playerRectangle.Width = 50;
             playerRectangle.Fill = Brushes.Blue;
-            canvas.Children.Add(playerRectangle);
+            c.Children.Add(playerRectangle);
             Canvas.SetLeft(playerRectangle, playerPoint.X);
             Canvas.SetTop(playerRectangle, playerPoint.Y);
         }

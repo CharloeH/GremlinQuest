@@ -19,14 +19,13 @@ namespace GremlinQuest
     class Map
     {
         public Point WallPoint = new Point(0,0);
-        public void GenerateMap(StackPanel sp, Rectangle r)
+        public void GenerateMap(Canvas c, StackPanel sp)
         {
-            sp.Children.Add(r);
-            r.Fill = Brushes.Red;
-            r.Height = 650;
-            r.Width = 1000;
-            r.HorizontalAlignment = HorizontalAlignment.Center;
-
+            c.Background = Brushes.DarkRed;
+            c.Height = 650;
+            c.Width = 1000;
+            c.HorizontalAlignment = HorizontalAlignment.Center;
+            sp.Children.Add(c);
         }
     }
 }
