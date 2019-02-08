@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Windows.Threading;
 namespace GremlinQuestV1._1
 {
     /// <summary>
@@ -21,14 +21,36 @@ namespace GremlinQuestV1._1
     public partial class MainWindow : Window
     {
         //Class Declaration
+        DispatcherTimer GameTimer;
+        Rectangle PlayerRectangle;
         Menu menu;
+        Point playerPoint;
+        Player player;
         public bool ShopOpen = false;
+        public bool isGenerated = false;
         public Canvas CShop;
 
         public MainWindow()
         {
+            GameTimer = new DispatcherTimer();
+            PlayerRectangle = new Rectangle();
+            playerPoint = new Point(500,500);
             menu = new Menu();
+            player = new Player(); 
             InitializeComponent();
+
+
+
+            //Generating player
+            if (isGenerated == false)
+            {
+                player.GeneratePlayer(Canvas, playerPoint);
+                isGenerated = true;
+            }
+            //Gametimer
+            GameTimer.Tick += GameTimer_tick;
+            GameTimer.Interval = new TimeSpan(0, 0, 0, 0, 1000 / 60);//fps
+            GameTimer.Start();
 
             //needs moved to shop class
             CShop = new Canvas();
@@ -36,6 +58,11 @@ namespace GremlinQuestV1._1
             CShop.Height = 650;
             CShop.Width = 1000;
             CShop.HorizontalAlignment = HorizontalAlignment.Center;
+        }
+        private void GameTimer_tick(object sender, EventArgs e)
+        {
+            player.PlayerMove(PlayerRectangle, playerPoint);
+            playerPoint = player.PlayerMove(PlayerRectangle, playerPoint);
         }
 
         private void BtnShop_Click(object sender, RoutedEventArgs e)
@@ -53,6 +80,7 @@ namespace GremlinQuestV1._1
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
             Testbox();
+            menu.HideAll(btnBack, btnPlay, btnCredits, txtCredits);
         }
 
         private void btnCredits_Click(object sender, RoutedEventArgs e)
@@ -69,7 +97,7 @@ namespace GremlinQuestV1._1
 
         private void Testbox()
         {
-            MessageBox.Show("test");
+            //MessageBox.Show("test");
         }
 
         //needs moved to shop class, requires references.
@@ -88,6 +116,11 @@ namespace GremlinQuestV1._1
             BtnShop.Content = "Open Shop";
             ShopOpen = false;
             //troubleshooting lblConsole.Content = "Shop not open";
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }

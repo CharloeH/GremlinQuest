@@ -31,6 +31,13 @@ namespace GremlinQuestV1._1
             txtCredits.Visibility = Visibility.Visible;
             btnBack.Visibility = Visibility.Visible;
         }
+        public void HideAll(Button btnCredits, Button btnPlay, Button btnBack, TextBlock txtCredits)
+        {
+            btnBack.Visibility = Visibility.Hidden;
+            btnPlay.Visibility = Visibility.Hidden;
+            btnCredits.Visibility = Visibility.Hidden;
+            txtCredits.Visibility = Visibility.Hidden;
+        }
         public void Testbox()
         {
             //MessageBox.Show("test");

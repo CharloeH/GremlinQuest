@@ -24,8 +24,24 @@ namespace GremlinQuestV1._1
             playerPoint = pP;
             if (Keyboard.IsKeyDown(Key.W))
             {
-                pP.Y = pP.Y - 10;
+                DisplayCordinates(playerPoint);
+                pP.Y -= 10;
+                
             }
+            if(Keyboard.IsKeyDown(Key.S))
+            {
+                pP.Y += 10;
+            }
+            if(Keyboard.IsKeyDown(Key.A))
+            {
+                pP.X -= 10;
+            }
+            if(Keyboard.IsKeyDown(Key.D))
+            {
+                pP.X += 10;
+            }
+            Canvas.SetLeft(playerRectangle, playerPoint.X);
+            Canvas.SetTop(playerRectangle, playerPoint.Y);
             return pP;
         }
 
@@ -34,11 +50,14 @@ namespace GremlinQuestV1._1
             playerPoint = pP;
             playerRectangle.Height = 50;
             playerRectangle.Width = 50;
-            playerRectangle.Fill = Brushes.Red;
+            playerRectangle.Fill = Brushes.Blue;
             canvas.Children.Add(playerRectangle);
             Canvas.SetLeft(playerRectangle, playerPoint.X);
             Canvas.SetTop(playerRectangle, playerPoint.Y);
         }
-
+        public void DisplayCordinates(Point PlayerPoint)
+        {
+            Console.WriteLine(playerPoint);
+        }
     }
 }
