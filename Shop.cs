@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +17,43 @@ namespace GremlinQuest
 {
     class Shop
     {
+        public bool ShopOpen = false;
+        public Canvas CShop;
+        private StackPanel sp;
+
+        public Canvas GenerateShop(StackPanel SPWindow)
+        {
+            sp = SPWindow;
+            //creates shop
+            CShop = new Canvas();
+            CShop.Background = Brushes.Red;
+            CShop.Height = 650;
+            CShop.Width = 1000;
+            CShop.HorizontalAlignment = HorizontalAlignment.Center;
+
+            
+            return CShop;
+        }
+
+        public void AddItem()
+        {
+
+        }
+
+        public void OpenShopWindow(Button btnShop)
+        {
+            btnShop.Content = "Close Shop";
+            sp.Children.Add(CShop);
+            ShopOpen = true;
+            //Console.WriteLine("Shop open");
+        }
+
+        public void CloseShopWindow(Button btnShop)
+        {
+            sp.Children.RemoveAt(sp.Children.IndexOf(CShop));
+            btnShop.Content = "Open Shop";
+            ShopOpen = false;
+            //Console.WriteLine("Shop not open");
+        }
     }
 }
