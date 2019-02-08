@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace GremlinQuestV1._1
+namespace GremlinQuest
 {
     class Map
     {
